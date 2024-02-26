@@ -7,13 +7,13 @@ export default function Layout({ children }: Props) {
     return (
         <>
             <Header />
-            <LayoutStyle>{children}</LayoutStyle>
+            <StyledMain>{children}</StyledMain>
             <Footer />
         </>
     );
 }
 
-const LayoutStyle = styled.main`
+const StyledMain = styled.main`
     width: 100%;
     margin: 0 auto;
     max-width: ${({ theme }) => theme.layout.width.large};

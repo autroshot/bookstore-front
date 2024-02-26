@@ -10,18 +10,18 @@ export default function Button({
     isLoading,
 }: Props) {
     return (
-        <ButtonStyle
+        <StyledButton
             size={size}
             $scheme={scheme}
             disabled={disabled}
             isLoading={isLoading}
         >
             {children}
-        </ButtonStyle>
+        </StyledButton>
     );
 }
 
-const ButtonStyle = styled.button<
+const StyledButton = styled.button<
     Omit<Props, 'children' | 'scheme'> & { $scheme: ButtonScheme }
 >`
     font-size: ${({ theme, size }) => theme.button[size].fontSize};

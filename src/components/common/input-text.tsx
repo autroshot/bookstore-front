@@ -4,15 +4,15 @@ import styled from 'styled-components';
 const InputText = forwardRef(
     ({ placeholder }: Props, ref: ForwardedRef<HTMLInputElement>) => {
         return (
-            <InputTextStyle
+            <StyledInputText
                 placeholder={placeholder}
                 ref={ref}
-            ></InputTextStyle>
+            ></StyledInputText>
         );
     }
 );
 
-const InputTextStyle = styled.input.attrs({ type: 'text' })`
+const StyledInputText = styled.input.attrs({ type: 'text' })`
     padding: 0.25rem 0.75rem;
     border: 1px solid ${({ theme }) => theme.color.border};
     border-radius: ${({ theme }) => theme.borderRadius.default};

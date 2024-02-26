@@ -12,7 +12,7 @@ export default function Header() {
     ];
 
     return (
-        <HeaderStyle>
+        <StyledHeader>
             <h1 className="logo">
                 <Link to="/">
                     <img src={logo} alt="bookstore" />
@@ -50,11 +50,11 @@ export default function Header() {
                     </li>
                 </ul>
             </nav>
-        </HeaderStyle>
+        </StyledHeader>
     );
 }
 
-const HeaderStyle = styled.header`
+const StyledHeader = styled.header`
     width: 100%;
     margin: 0 auto;
     max-width: ${({ theme }) => theme.layout.width.large};

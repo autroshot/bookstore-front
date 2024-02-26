@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import { ColorKey, HeadingSize } from '../../styles/theme';
 
 export default function Title({ children, size, color }: Props) {
-    return <TitleStyle size={size}>{children}</TitleStyle>;
+    return <StyledHeadingOne size={size}>{children}</StyledHeadingOne>;
 }
 
-const TitleStyle = styled.h1<Omit<Props, 'children'>>`
+const StyledHeadingOne = styled.h1<Omit<Props, 'children'>>`
     font-size: ${({ theme, size }) => theme.heading[size].fontSize};
     color: ${({ theme, color }) =>
         color ? theme.color[color] : theme.color.primary};

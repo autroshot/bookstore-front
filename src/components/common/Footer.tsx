@@ -4,7 +4,7 @@ import logo from '../../assets/images/logo.png';
 
 export default function Footer() {
     return (
-        <FooterStyle>
+        <StyledFooter>
             <h1 className="logo">
                 <Link to="/">
                     <img src={logo} alt="bookstore" />
@@ -13,11 +13,11 @@ export default function Footer() {
             <div className="copyright">
                 <p>copyright(c), 2024, Bookstore</p>
             </div>
-        </FooterStyle>
+        </StyledFooter>
     );
 }
 
-const FooterStyle = styled.footer`
+const StyledFooter = styled.footer`
     width: 100%;
     margin: 0 auto;
     max-width: ${({ theme }) => theme.layout.width.large};
