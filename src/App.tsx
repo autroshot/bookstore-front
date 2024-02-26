@@ -1,16 +1,37 @@
-import { ThemeProvider } from 'styled-components';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
+import Error from './components/common/error';
+import { ThemeProvider } from './contexts/theme';
 import Layout from './layouts/layout';
 import Home from './pages/home';
-import { GlobalStyle } from './styles/global';
-import { light } from './styles/theme';
 
-function App() {
-    return (
-        <ThemeProvider theme={light}>
-            <GlobalStyle themeName="light" />
+const router = createBrowserRouter([
+    {
+        path: '/',
+        element: (
             <Layout>
                 <Home />
             </Layout>
+        ),
+        errorElement: (
+            <Layout>
+                <Error />
+            </Layout>
+        ),
+    },
+    {
+        path: '/books',
+        element: (
+            <Layout>
+                <div>도서 목록</div>
+            </Layout>
+        ),
+    },
+]);
+
+function App() {
+    return (
+        <ThemeProvider>
+            <RouterProvider router={router} />
         </ThemeProvider>
     );
 }
