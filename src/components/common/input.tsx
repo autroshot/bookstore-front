@@ -1,18 +1,19 @@
-import { ForwardedRef, forwardRef } from 'react';
+import { ForwardedRef, InputHTMLAttributes, forwardRef } from 'react';
 import styled from 'styled-components';
 
-const InputText = forwardRef(
-    ({ placeholder }: Props, ref: ForwardedRef<HTMLInputElement>) => {
+const Input = forwardRef(
+    ({ placeholder, ...props }: Props, ref: ForwardedRef<HTMLInputElement>) => {
         return (
             <StyledInputText
                 placeholder={placeholder}
                 ref={ref}
+                {...props}
             ></StyledInputText>
         );
     }
 );
 
-const StyledInputText = styled.input.attrs({ type: 'text' })`
+const StyledInputText = styled.input`
     padding: 0.25rem 0.75rem;
     border: 1px solid ${({ theme }) => theme.color.border};
     border-radius: ${({ theme }) => theme.borderRadius.default};
@@ -21,8 +22,8 @@ const StyledInputText = styled.input.attrs({ type: 'text' })`
     color: ${({ theme }) => theme.color.text};
 `;
 
-interface Props {
+interface Props extends InputHTMLAttributes<HTMLInputElement> {
     placeholder?: string;
 }
 
-export default InputText;
+export default Input;

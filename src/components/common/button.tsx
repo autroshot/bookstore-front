@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 import styled from 'styled-components';
 import { ButtonScheme, ButtonSize } from '../../styles/theme';
 
@@ -8,6 +8,7 @@ export default function Button({
     scheme,
     disabled,
     isLoading,
+    ...props
 }: Props) {
     return (
         <StyledButton
@@ -15,6 +16,7 @@ export default function Button({
             $scheme={scheme}
             disabled={disabled}
             isLoading={isLoading}
+            {...props}
         >
             {children}
         </StyledButton>
@@ -36,7 +38,7 @@ const StyledButton = styled.button<
     cursor: ${({ disabled }) => (disabled ? 'none' : 'pointer')};
 `;
 
-interface Props {
+interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
     children: ReactNode;
     size: ButtonSize;
     scheme: ButtonScheme;
