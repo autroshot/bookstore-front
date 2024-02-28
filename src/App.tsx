@@ -2,6 +2,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import Error from './components/common/error';
 import { ThemeProvider } from './contexts/theme';
 import Layout from './layouts/layout';
+import Books from './pages/books';
 import Home from './pages/home';
 import Login from './pages/login';
 import ResetPassword from './pages/reset-password';
@@ -25,7 +26,7 @@ const router = createBrowserRouter([
         path: '/books',
         element: (
             <Layout>
-                <div>도서 목록</div>
+                <Books />
             </Layout>
         ),
     },

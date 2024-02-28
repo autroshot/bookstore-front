@@ -3,8 +3,8 @@ interface BookItem {
     title: string;
     author: string;
     price: number;
-    summary: string;
-    imageUrl: string;
+    summary: string | null;
+    imageUrl: string | null;
     likes: number;
 }
 
@@ -14,8 +14,8 @@ interface BookDetail extends BookItem {
     isbn: string;
     pages: number;
     publicationDate: Date;
-    description: string;
-    tableOfContents: string;
+    description: string | null;
+    tableOfContents: string | null;
 }
 
 export type { BookDetail, BookItem };
