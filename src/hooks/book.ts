@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
-import { fetchBooks } from '../apis/book';
+import { Params, fetchBooks } from '../apis/book';
 import { BookItem } from '../models/book';
-import useSearchParams from './search-params';
 
-export default function useBook() {
-    const { getSearchParam } = useSearchParams();
-    const categoryId = getSearchParam('categoryId') ?? undefined;
-    const isNew = getSearchParam('isNew') ?? undefined;
+export default function useBook(params: Params) {
+    const {
+        categoryId,
+        isNew,
+        pagination: { page, limit },
+    } = params;
 
     const [books, setBooks] = useState<BookItem[]>([]);
     const [totalPages, setTotalPages] = useState(1);
@@ -15,14 +16,14 @@ export default function useBook() {
         const params = {
             categoryId,
             isNew,
-            pagination: { page: 1, limit: 8 },
+            pagination: { page, limit },
         };
 
         fetchBooks(params).then((res) => {
             setBooks(res.books);
             setTotalPages(res.totalPages);
         });
-    }, [categoryId, isNew]);
+    }, [categoryId, isNew, page, limit]);
 
     return { books, totalPages };
 }
