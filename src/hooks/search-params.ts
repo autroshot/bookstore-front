@@ -12,9 +12,11 @@ const QUERY_STRING_CONFIG = {
 export default function useSearchParams() {
     const [searchParams, setSearchParams] = usePackageSearchParams();
 
-    return { get, set, remove };
+    return { getSearchParam, setSearchParam, deleteSearchParam };
 
-    function get<T extends Name>(name: T): QueryStringKeyTypeWithNull[T] {
+    function getSearchParam<T extends Name>(
+        name: T
+    ): QueryStringKeyTypeWithNull[T] {
         let result;
 
         switch (getType(name)) {
@@ -44,14 +46,17 @@ export default function useSearchParams() {
         return result as QueryStringKeyTypeWithNull[T];
     }
 
-    function set<T extends Name>(name: T, value: QueryStringKeyType[T]): void {
+    function setSearchParam<T extends Name>(
+        name: T,
+        value: QueryStringKeyType[T]
+    ): void {
         setSearchParams((urlSearchParams) => {
             urlSearchParams.set(getQueryStringKey(name), String(value));
             return urlSearchParams;
         });
     }
 
-    function remove(name: Name): void {
+    function deleteSearchParam(name: Name): void {
         setSearchParams((urlSearchParams) => {
             urlSearchParams.delete(getQueryStringKey(name));
             return urlSearchParams;
