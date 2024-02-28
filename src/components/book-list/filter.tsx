@@ -1,25 +1,21 @@
-import { useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
-import { CATEGORY_ID } from '../../constants/query-string';
 import useCategory from '../../hooks/category';
+import useSearchParams from '../../hooks/search-params';
 import Button from '../common/button';
 
 export default function Filter() {
-    const [searchParams, setSearchParams] = useSearchParams();
+    const { getSearchParam, setSearchParam, deleteSearchParam } =
+        useSearchParams();
     const categories = useCategory();
 
-    const currentCategoryId = searchParams.get(CATEGORY_ID);
-    const parsedCurrentCategoryId =
-        currentCategoryId === null ? null : Number(currentCategoryId);
+    const currentCategoryId = getSearchParam('categoryId');
 
     return (
         <StyledDiv>
             <div className="category">
                 <Button
                     size="medium"
-                    scheme={
-                        parsedCurrentCategoryId === null ? 'primary' : 'normal'
-                    }
+                    scheme={currentCategoryId === null ? 'primary' : 'normal'}
                     onClick={() => handleCategoryChange()}
                 >
                     전체
@@ -29,7 +25,7 @@ export default function Filter() {
                         key={category.id}
                         size="medium"
                         scheme={
-                            parsedCurrentCategoryId === category.id
+                            currentCategoryId === category.id
                                 ? 'primary'
                                 : 'normal'
                         }
@@ -49,16 +45,10 @@ export default function Filter() {
 
     function handleCategoryChange(id?: number) {
         if (id === undefined) {
-            setSearchParams((urlSearchParams) => {
-                urlSearchParams.delete(CATEGORY_ID);
-                return urlSearchParams;
-            });
+            deleteSearchParam('categoryId');
             return;
         }
-        setSearchParams((urlSearchParams) => {
-            urlSearchParams.set(CATEGORY_ID, String(id));
-            return urlSearchParams;
-        });
+        setSearchParam('categoryId', id);
         return;
     }
 }
