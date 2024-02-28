@@ -9,6 +9,7 @@ export default function Filter() {
     const categories = useCategory();
 
     const currentCategoryId = getSearchParam('categoryId');
+    const currentIsNew = getSearchParam('isNew') ?? false;
 
     return (
         <StyledDiv>
@@ -36,7 +37,11 @@ export default function Filter() {
                 ))}
             </div>
             <div className="new">
-                <Button size="medium" scheme="normal">
+                <Button
+                    size="medium"
+                    scheme={currentIsNew ? 'primary' : 'normal'}
+                    onClick={handleIsNewToggle}
+                >
                     신간
                 </Button>
             </div>
@@ -49,6 +54,17 @@ export default function Filter() {
             return;
         }
         setSearchParam('categoryId', id);
+        return;
+    }
+
+    function handleIsNewToggle() {
+        const isNew = getSearchParam('isNew') ?? false;
+
+        if (isNew) {
+            deleteSearchParam('isNew');
+            return;
+        }
+        setSearchParam('isNew', true);
         return;
     }
 }
