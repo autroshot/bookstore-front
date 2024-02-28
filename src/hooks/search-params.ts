@@ -28,7 +28,15 @@ export default function useSearchParams() {
             }
             case 'boolean': {
                 const value = searchParams.get(getQueryStringKey(name));
-                result = value === null ? null : Boolean(value);
+                if (value === 'true') {
+                    result = true;
+                    break;
+                }
+                if (value === 'false') {
+                    result = false;
+                    break;
+                }
+                result = null;
 
                 break;
             }
