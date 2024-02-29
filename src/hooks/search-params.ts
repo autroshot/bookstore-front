@@ -7,7 +7,7 @@ const QUERY_STRING_CONFIG = {
 } as const satisfies QueryStringKeyMap;
 
 /**
- * React Router의 useSearchParams에 key 제한과 형변환 기능을 추가한 훅이다.
+ * React Router의 useSearchParams에 key 제한과 타입 변환 기능을 추가한 커스텀 훅이다.
  */
 export default function useSearchParams() {
     const [searchParams, setSearchParams] = usePackageSearchParams();
@@ -70,13 +70,13 @@ export default function useSearchParams() {
             return urlSearchParams;
         });
     }
-}
 
-function getQueryStringKey(name: Name) {
-    return QUERY_STRING_CONFIG[name]['queryStringkey'];
-}
-function getType(name: Name) {
-    return QUERY_STRING_CONFIG[name]['type'];
+    function getQueryStringKey(name: Name) {
+        return QUERY_STRING_CONFIG[name]['queryStringkey'];
+    }
+    function getType(name: Name) {
+        return QUERY_STRING_CONFIG[name]['type'];
+    }
 }
 
 type QueryStringKeyMapLiteral = typeof QUERY_STRING_CONFIG;
