@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '../../contexts/theme';
 import { BookItem } from '../../models/book';
 import Item from './item';
@@ -14,11 +15,15 @@ const BOOK_ITEM_DUMMY: BookItem = {
     likes: 22,
 } as const;
 
+const router = createBrowserRouter([
+    { path: '/', element: <Item book={BOOK_ITEM_DUMMY} /> },
+]);
+
 describe('BookItem 컴포넌트 테스트', () => {
     it('렌더링을 확인', () => {
         render(
             <ThemeProvider>
-                <Item book={BOOK_ITEM_DUMMY} />
+                <RouterProvider router={router} />
             </ThemeProvider>
         );
 

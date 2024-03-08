@@ -1,11 +1,18 @@
 import { FaHeart } from 'react-icons/fa';
 import styled from 'styled-components';
 import defaultBookCover from '../../assets/images/default-book-cover.png';
+import useSearchParams from '../../hooks/search-params';
 import { BookItem } from '../../models/book';
+import { ViewOptionValue } from './view-switcher';
 
 export default function Item({ book }: Props) {
+    const { getSearchParam } = useSearchParams();
+
+    const currentViewOption = (getSearchParam('viewOption') ??
+        'grid') as ViewOptionValue;
+
     return (
-        <StyledDiv>
+        <StyledDiv $viewOption={currentViewOption}>
             <div className="img">
                 <img
                     width="200px"
@@ -27,14 +34,18 @@ export default function Item({ book }: Props) {
     );
 }
 
-const StyledDiv = styled.div`
+const StyledDiv = styled.div<StyleProps>`
     display: flex;
-    flex-direction: column;
+    flex-direction: ${({ $viewOption }) =>
+        $viewOption === 'grid' ? 'column' : 'row'};
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 
     .img {
         border-radius: ${({ theme }) => theme.borderRadius.default};
         overflow: hidden;
+        width: ${({ $viewOption }) =>
+            $viewOption === 'grid' ? 'auto' : '160px'};
+        text-align: center;
 
         img {
             max-width: 100%;
@@ -44,6 +55,7 @@ const StyledDiv = styled.div`
     .content {
         padding: 16px;
         position: relative;
+        flex: ${({ $viewOption }) => ($viewOption === 'grid' ? '0' : '1')};
 
         .title {
             font-size: 1.25rem;
@@ -69,7 +81,6 @@ const StyledDiv = styled.div`
         .likes {
             display: inline-flex;
             align-items: center;
-            gap: 4px;
             font-size: 0.875rem;
             margin: 0 0 4px 0;
             font-weight: 700;
@@ -89,4 +100,8 @@ const StyledDiv = styled.div`
 
 interface Props {
     book: BookItem;
+}
+
+interface StyleProps {
+    $viewOption: ViewOptionValue;
 }

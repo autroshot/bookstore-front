@@ -9,30 +9,38 @@ import Title from '../components/common/title';
 import useBook from '../hooks/book';
 import useSearchParams from '../hooks/search-params';
 
+const DEFAULT_LIMIT = 8;
+
 export default function Books() {
     const { getSearchParam } = useSearchParams();
     const categoryId = getSearchParam('categoryId') ?? undefined;
     const isNew = getSearchParam('isNew') ?? undefined;
+    const page = getSearchParam('page') ?? 1;
     const params: Params = {
         categoryId,
         isNew,
-        pagination: { page: 1, limit: 8 },
+        pagination: { page, limit: DEFAULT_LIMIT },
     };
 
-    const { books } = useBook(params);
+    const { books, totalPages } = useBook(params);
 
     return (
         <>
             <Title size="large">도서 검색 결과</Title>
             <StyledDiv>
-                <Filter />
-                <ViewSwitcher />
+                <div className="filter">
+                    <Filter />
+                    <ViewSwitcher />
+                </div>
                 {books.length === 0 ? (
                     <Empty />
                 ) : (
                     <>
                         <List books={books} />
-                        <Pagination />
+                        <Pagination
+                            pagination={{ page, limit: 8 }}
+                            totalPages={totalPages}
+                        />
                     </>
                 )}
             </StyledDiv>
@@ -40,4 +48,18 @@ export default function Books() {
     );
 }
 
-const StyledDiv = styled.div``;
+const StyledDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 24px;
+
+    .filter {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+    }
+`;
+
+export { DEFAULT_LIMIT };

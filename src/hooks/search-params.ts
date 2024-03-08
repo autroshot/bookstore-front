@@ -3,7 +3,9 @@ import { useSearchParams as usePackageSearchParams } from 'react-router-dom';
 const QUERY_STRING_CONFIG = {
     categoryId: { queryStringkey: 'category-id', type: 'number' },
     isNew: { queryStringkey: 'is-new', type: 'boolean' },
-    view: { queryStringkey: 'view', type: 'string' },
+    viewOption: { queryStringkey: 'view-option', type: 'string' },
+    page: { queryStringkey: 'page', type: 'number' },
+    limit: { queryStringkey: 'limit', type: 'number' },
 } as const satisfies QueryStringKeyMap;
 
 /**

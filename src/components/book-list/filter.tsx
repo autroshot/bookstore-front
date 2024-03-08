@@ -51,9 +51,11 @@ export default function Filter() {
     function handleCategoryChange(id?: number) {
         if (id === undefined) {
             deleteSearchParam('categoryId');
+            deleteSearchParam('page');
             return;
         }
         setSearchParam('categoryId', id);
+        deleteSearchParam('page');
         return;
     }
 
@@ -62,9 +64,11 @@ export default function Filter() {
 
         if (isNew) {
             deleteSearchParam('isNew');
+            deleteSearchParam('page');
             return;
         }
         setSearchParam('isNew', true);
+        deleteSearchParam('page');
         return;
     }
 }

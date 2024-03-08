@@ -6,20 +6,22 @@ async function fetchBooks({
     categoryId,
     isNew,
     pagination: { page, limit },
-}: Params) {
+}: Params): Promise<Response> {
+    const DEFAULT_RESPONSE: Response = { books: [], totalPages: 1 };
+
     if (categoryId === undefined) {
         const res = await httpClient.get<Response>('/books', {
             params: { 'is-new': isNew, page, limit },
         });
 
-        return res?.data ?? [];
+        return res?.data ?? DEFAULT_RESPONSE;
     }
     const res = await httpClient.get<Response>(
         `/categories/${categoryId}/books`,
         { params: { 'is-new': isNew, page, limit } }
     );
 
-    return res?.data ?? [];
+    return res?.data ?? DEFAULT_RESPONSE;
 }
 
 interface Params {
